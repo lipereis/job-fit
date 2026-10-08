@@ -1,0 +1,504 @@
+{
+  "_comment": "Canonical skill -> aliases. Matching is accent-insensitive, lowercase and whole-word. Non-technical requirement families are listed too, so a posting that asks for them counts against a profile that lacks them.",
+  "skills": {
+    "Python": [
+      "python"
+    ],
+    "JavaScript": [
+      "javascript"
+    ],
+    "TypeScript": [
+      "typescript"
+    ],
+    "Java": [
+      "java",
+      "spring",
+      "spring boot",
+      "kotlin"
+    ],
+    "C#/.NET": [
+      "c#",
+      ".net",
+      "dotnet",
+      "asp.net"
+    ],
+    "Go": [
+      "golang",
+      "go lang"
+    ],
+    "PHP": [
+      "php",
+      "laravel"
+    ],
+    "Ruby": [
+      "ruby",
+      "rails"
+    ],
+    "Node.js": [
+      "node",
+      "node.js",
+      "nodejs"
+    ],
+    "React": [
+      "react",
+      "react.js",
+      "reactjs"
+    ],
+    "Next.js": [
+      "next.js",
+      "nextjs"
+    ],
+    "Angular": [
+      "angular"
+    ],
+    "Vue": [
+      "vue",
+      "vue.js",
+      "vuejs"
+    ],
+    "HTML/CSS": [
+      "html",
+      "css",
+      "tailwind",
+      "sass"
+    ],
+    "SQL": [
+      "sql",
+      "postgres",
+      "postgresql",
+      "mysql",
+      "sqlite",
+      "sql server",
+      "banco de dados relacional",
+      "relational database"
+    ],
+    "NoSQL": [
+      "nosql",
+      "mongodb",
+      "dynamodb",
+      "redis",
+      "cassandra"
+    ],
+    "REST APIs": [
+      "restful",
+      "api",
+      "apis",
+      "api rest",
+      "apis rest",
+      "webhook",
+      "webhooks",
+      "rest api",
+      "rest apis",
+      "apis restful"
+    ],
+    "GraphQL": [
+      "graphql"
+    ],
+    "FastAPI": [
+      "fastapi"
+    ],
+    "Django/Flask": [
+      "django",
+      "flask"
+    ],
+    "Git": [
+      "git",
+      "github",
+      "gitlab",
+      "bitbucket",
+      "versionamento",
+      "version control"
+    ],
+    "Docker": [
+      "docker",
+      "conteineres",
+      "docker compose"
+    ],
+    "Kubernetes": [
+      "kubernetes",
+      "k8s",
+      "helm"
+    ],
+    "CI/CD": [
+      "ci/cd",
+      "cicd",
+      "github actions",
+      "gitlab ci",
+      "jenkins",
+      "pipeline de deploy",
+      "continuous integration",
+      "integracao continua"
+    ],
+    "AWS": [
+      "aws",
+      "amazon web services",
+      "ec2",
+      "aws lambda",
+      "amazon s3"
+    ],
+    "GCP": [
+      "gcp",
+      "google cloud",
+      "bigquery"
+    ],
+    "Azure": [
+      "azure"
+    ],
+    "Microservices": [
+      "microsservicos",
+      "microservicos",
+      "microservices",
+      "sistemas distribuidos",
+      "distributed systems"
+    ],
+    "Linux": [
+      "linux",
+      "bash",
+      "shell script",
+      "shell scripting"
+    ],
+    "Automated testing": [
+      "pytest",
+      "jest",
+      "testes automatizados",
+      "automated tests",
+      "automated testing",
+      "test automation",
+      "automacao de testes",
+      "testes unitarios",
+      "unit tests",
+      "tdd",
+      "cypress",
+      "selenium",
+      "playwright"
+    ],
+    "LLM APIs": [
+      "llm",
+      "llms",
+      "openai",
+      "gpt",
+      "gemini",
+      "claude",
+      "anthropic",
+      "ia generativa",
+      "generative ai",
+      "genai",
+      "modelos de linguagem",
+      "language models"
+    ],
+    "Prompt engineering": [
+      "prompt",
+      "prompts",
+      "prompt engineering",
+      "engenharia de prompt"
+    ],
+    "RAG": [
+      "rag",
+      "retrieval-augmented",
+      "retrieval augmented",
+      "busca semantica",
+      "semantic search"
+    ],
+    "Vector databases": [
+      "chroma",
+      "pinecone",
+      "pgvector",
+      "weaviate",
+      "qdrant",
+      "embeddings",
+      "embedding",
+      "banco vetorial",
+      "vector database"
+    ],
+    "Agent frameworks": [
+      "langchain",
+      "langgraph",
+      "crewai",
+      "llamaindex",
+      "autogen",
+      "agentes de ia",
+      "ai agents",
+      "agentic"
+    ],
+    "ML training": [
+      "pytorch",
+      "tensorflow",
+      "scikit-learn",
+      "sklearn",
+      "fine-tuning",
+      "fine tuning",
+      "mlops",
+      "treinamento de modelos",
+      "model training",
+      "machine learning"
+    ],
+    "Data analysis": [
+      "pandas",
+      "numpy",
+      "analise de dados",
+      "data analysis",
+      "jupyter"
+    ],
+    "BI tools": [
+      "power bi",
+      "powerbi",
+      "tableau",
+      "looker",
+      "metabase",
+      "data studio"
+    ],
+    "Spreadsheets": [
+      "excel",
+      "google sheets",
+      "planilhas",
+      "spreadsheets"
+    ],
+    "Data engineering": [
+      "spark",
+      "databricks",
+      "airflow",
+      "dbt",
+      "etl",
+      "data pipeline",
+      "pipelines de dados",
+      "data warehouse"
+    ],
+    "Workflow automation": [
+      "n8n",
+      "zapier",
+      "make.com",
+      "integromat",
+      "power automate",
+      "automacao de processos",
+      "automacoes",
+      "workflow automation",
+      "process automation",
+      "no-code",
+      "low-code"
+    ],
+    "RPA": [
+      "rpa",
+      "uipath",
+      "automation anywhere",
+      "blue prism"
+    ],
+    "Web scraping": [
+      "scraping",
+      "web scraping",
+      "beautifulsoup",
+      "scrapy",
+      "raspagem"
+    ],
+    "Video editing": [
+      "premiere",
+      "premiere pro",
+      "davinci",
+      "davinci resolve",
+      "final cut",
+      "capcut",
+      "edicao de video",
+      "video editing",
+      "edicao de videos"
+    ],
+    "Motion graphics": [
+      "after effects",
+      "motion graphics",
+      "motion design",
+      "animacao 2d"
+    ],
+    "Design tools": [
+      "photoshop",
+      "illustrator",
+      "figma",
+      "canva",
+      "indesign"
+    ],
+    "Short-form video": [
+      "reels",
+      "tiktok",
+      "shorts",
+      "short-form",
+      "videos curtos",
+      "conteudo vertical"
+    ],
+    "Filming": [
+      "captacao",
+      "filmagem",
+      "videomaker",
+      "filmmaker",
+      "cinegrafista",
+      "shooting",
+      "operador de camera",
+      "camera operator"
+    ],
+    "Live streaming": [
+      "obs studio",
+      "vmix",
+      "livestream",
+      "live streaming",
+      "transmissao ao vivo"
+    ],
+    "Audio": [
+      "audio editing",
+      "edicao de audio",
+      "audition",
+      "pro tools",
+      "podcast",
+      "sound design"
+    ],
+    "Transcription/ASR": [
+      "whisper",
+      "transcricao",
+      "transcription",
+      "speech-to-text",
+      "ffmpeg"
+    ],
+    "Copywriting": [
+      "copywriting",
+      "copy",
+      "redacao",
+      "roteiro",
+      "roteirizacao",
+      "scriptwriting",
+      "storytelling"
+    ],
+    "Social media": [
+      "social media",
+      "midias sociais",
+      "redes sociais",
+      "instagram",
+      "community management",
+      "gestao de comunidade"
+    ],
+    "SEO": [
+      "seo",
+      "search engine optimization"
+    ],
+    "Paid media": [
+      "google ads",
+      "meta ads",
+      "facebook ads",
+      "midia paga",
+      "paid media",
+      "trafego pago",
+      "performance marketing"
+    ],
+    "Marketing analytics": [
+      "google analytics",
+      "ga4",
+      "metricas de performance",
+      "roi",
+      "cac",
+      "funil de marketing"
+    ],
+    "CRM platforms": [
+      "salesforce",
+      "hubspot",
+      "pipedrive",
+      "rd station",
+      "zendesk",
+      "crm"
+    ],
+    "Sales": [
+      "prospeccao",
+      "cold call",
+      "cold calling",
+      "sdr",
+      "bdr",
+      "inside sales",
+      "account executive",
+      "quota",
+      "metas comerciais",
+      "negociacao comercial",
+      "metas de vendas",
+      "sales quota",
+      "experiencia em vendas",
+      "sales experience",
+      "closing deals"
+    ],
+    "Collections": [
+      "cobranca",
+      "inadimplencia",
+      "inadimplentes",
+      "collections",
+      "renegociacao",
+      "recuperacao de credito"
+    ],
+    "Customer retention": [
+      "churn",
+      "retencao de clientes",
+      "customer retention",
+      "renewals"
+    ],
+    "Customer support": [
+      "suporte ao cliente",
+      "atendimento ao cliente",
+      "customer support",
+      "help desk",
+      "helpdesk",
+      "service desk"
+    ],
+    "Call center": [
+      "call center",
+      "telemarketing",
+      "contact center",
+      "atendimento telefonico"
+    ],
+    "Technical support": [
+      "suporte tecnico",
+      "technical support",
+      "troubleshooting",
+      "resolucao de problemas tecnicos",
+      "debugging"
+    ],
+    "Software implementation": [
+      "implantacao",
+      "onboarding de clientes",
+      "customer onboarding",
+      "implementation",
+      "implementacao de sistemas"
+    ],
+    "Accounting/Finance": [
+      "contabilidade",
+      "contabil",
+      "fiscal",
+      "tributario",
+      "conciliacao bancaria",
+      "contas a pagar",
+      "accounting",
+      "fp&a"
+    ],
+    "Networking/Infra": [
+      "active directory",
+      "cisco",
+      "redes de computadores",
+      "itil",
+      "firewall",
+      "vpn",
+      "windows server"
+    ],
+    "Project management": [
+      "scrum",
+      "kanban",
+      "agile",
+      "metodologias ageis",
+      "jira",
+      "gestao de projetos",
+      "project management"
+    ],
+    "Documentation": [
+      "documentacao",
+      "documentation",
+      "technical writing",
+      "redacao tecnica"
+    ],
+    "English": [
+      "ingles",
+      "english"
+    ],
+    "Spanish": [
+      "espanhol",
+      "spanish"
+    ]
+  }
+}

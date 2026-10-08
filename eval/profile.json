@@ -1,0 +1,55 @@
+{
+  "skills": {
+    "Automated testing": "strong",
+    "CI/CD": "basic",
+    "Copywriting": "basic",
+    "Docker": "strong",
+    "English": "basic",
+    "FastAPI": "basic",
+    "Git": "strong",
+    "LLM APIs": "strong",
+    "Motion graphics": "basic",
+    "Next.js": "basic",
+    "Prompt engineering": "basic",
+    "Python": "strong",
+    "RAG": "basic",
+    "REST APIs": "strong",
+    "React": "basic",
+    "SQL": "basic",
+    "Short-form video": "strong",
+    "Social media": "basic",
+    "Transcription/ASR": "basic",
+    "TypeScript": "basic",
+    "Video editing": "strong",
+    "Workflow automation": "strong"
+  },
+  "level": "junior",
+  "years": 1,
+  "remote_only": false,
+  "locations": [
+    "Rio de Janeiro"
+  ],
+  "remote_regions": [
+    "brazil",
+    "brasil",
+    "latam",
+    "latin america",
+    "worldwide",
+    "anywhere",
+    "global"
+  ],
+  "targets": [
+    "automa",
+    "video",
+    "vídeo",
+    "videomaker",
+    "python",
+    " ia",
+    "ai ",
+    "content",
+    "conteúdo",
+    "support",
+    "suporte",
+    "data developer"
+  ]
+}
