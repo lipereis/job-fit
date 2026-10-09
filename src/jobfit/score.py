@@ -27,14 +27,14 @@ WEIGHT_REQUIRED, WEIGHT_NICE, WEIGHT_LEVEL = 0.70, 0.15, 0.15
 UNJUDGEABLE_CAP = 50
 GATE_CAP = 45
 FIT, STRETCH = 65, 45
+MIN_REQUIREMENTS = 3
+MIN_LINES_READ = 0.5
+SKILL_VALUE = {"strong": 1.0, "basic": 0.5}
 
 
 def band(value: int) -> str:
     """fit: you cover what is asked. stretch: a real gap, worth only a low-effort application. out: skip."""
     return "fit" if value >= FIT else "stretch" if value >= STRETCH else "out"
-MIN_REQUIREMENTS = 3
-MIN_LINES_READ = 0.5
-SKILL_VALUE = {"strong": 1.0, "basic": 0.5}
 
 
 @dataclass

@@ -138,6 +138,33 @@ def test_database_stores_jobs_once_and_ranks_by_score(tmp_path):
     assert demand["Python"] == 50.0 and demand["Sales"] == 50.0
 
 
+def test_companies_are_ranked_by_postings_that_ask_for_a_skill(tmp_path, capsys):
+    database = str(tmp_path / "t.db")
+    conn = db.connect(database)
+    jobs = [
+        {"id": "a1", "source": "x", "company": "Acme", "title": "Dev", "description": "Requirements\n- Python\n- SQL"},
+        {"id": "a2", "source": "x", "company": "Acme", "title": "Dev", "description": "Requirements\n- Go\n\nNice to have\n- Python"},
+        {"id": "a3", "source": "x", "company": "Acme", "title": "PM", "description": "Requirements\n- Roadmap"},
+        {"id": "b1", "source": "x", "company": "Beta", "title": "Dev", "description": "Requirements\n- Python\n- Docker"},
+        {"id": "c1", "source": "x", "company": "Gamma", "title": "Ops", "description": "Requirements\n- Linux"},
+    ]
+    db.upsert_jobs(conn, jobs)
+    for job in jobs:
+        req = extract(job["title"], job["description"])
+        db.save_analysis(conn, job["id"], "p1", score(req, PROFILE), req.required, req.nice)
+    conn.commit()
+
+    rows = [tuple(row) for row in db.companies_for_skill(conn, "python")]
+    # company, postings mentioning it, of which required, all postings of the company
+    assert rows == [("Acme", 2, 1, 3), ("Beta", 1, 1, 1)]
+    assert db.companies_for_skill(conn, "Cobol") == []
+
+    assert main(["--db", database, "companies", "--skill", "Python"]) == 0
+    out = capsys.readouterr().out
+    assert "2 / 3" in out and "Acme" in out and "(1 required, 1 nice to have)" in out
+    assert main(["--db", database, "companies", "--skill", "Cobol"]) == 1
+
+
 def test_cli_scores_and_explains_from_the_database(tmp_path, capsys):
     database, profile = str(tmp_path / "t.db"), str(ROOT / "eval" / "profile.json")
     db.upsert_jobs(db.connect(database), [{"id": "a", "source": "x", "company": "Acme", "title": "Dev Python Júnior",

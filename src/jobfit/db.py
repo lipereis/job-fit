@@ -72,6 +72,27 @@ def ranked(conn: sqlite3.Connection, profile: str, minimum: int, limit: int) -> 
         "ORDER BY a.score DESC, j.published DESC LIMIT ?", (profile, minimum, limit)).fetchall()
 
 
+def companies_for_skill(conn: sqlite3.Connection, skill: str) -> list[sqlite3.Row]:
+    """Companies ranked by how many of their postings ask for a skill.
+
+    Each row has the company, the postings that mention the skill, how many of those list it as
+    required rather than nice to have, and all the postings the company has in the database.
+    """
+    return conn.execute(
+        """
+        SELECT j.company,
+               COUNT(*) AS jobs,
+               SUM(CASE WHEN r.kind = 'required' THEN 1 ELSE 0 END) AS required,
+               t.total
+        FROM required_skills AS r
+        JOIN jobs AS j ON j.id = r.job_id
+        JOIN (SELECT company, COUNT(*) AS total FROM jobs GROUP BY company) AS t ON t.company = j.company
+        WHERE r.skill = ? COLLATE NOCASE
+        GROUP BY j.company
+        ORDER BY jobs DESC, j.company
+        """, (skill,)).fetchall()
+
+
 def skill_demand(conn: sqlite3.Connection) -> list[sqlite3.Row]:
     """How many postings require each skill, and what share of all analysed postings that is."""
     return conn.execute(

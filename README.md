@@ -52,6 +52,8 @@ jobfit gaps
 
 `jobfit gaps` lists the skills the stored postings ask for most and whether you have each one. It is a plain SQL aggregate over the requirements table.
 
+`jobfit companies --skill Python` ranks companies by how many of their postings ask for a skill, next to how many postings they have in total, so a company with 3 of 4 postings asking for it stands out from one with 3 of 300.
+
 Skills and their aliases are in [`skills.json`](src/jobfit/data/skills.json), the boards in [`boards.json`](src/jobfit/data/boards.json). Both are meant to be edited.
 
 ## How I know whether it works
