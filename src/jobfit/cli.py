@@ -117,6 +117,18 @@ def cmd_companies(args) -> int:
     return 0
 
 
+def cmd_serve(args) -> int:
+    try:
+        import uvicorn
+
+        from .api import create_app
+    except ImportError:
+        print("The API needs extra packages: pip install 'jobfit[api]'", file=sys.stderr)
+        return 1
+    uvicorn.run(create_app(args.db, args.profile), host=args.host, port=args.port)
+    return 0
+
+
 def cmd_eval(args) -> int:
     report = evaluate(load_cases(Path(args.cases)), Profile.load(Path(args.profile)), args.cutoff)
     print(f"{report.total} labelled postings, cutoff {args.cutoff}")
@@ -172,6 +184,11 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--skill", required=True, help="skill name as shown by 'jobfit gaps', e.g. Python")
     p.add_argument("--limit", type=int, default=15)
     p.set_defaults(func=cmd_companies)
+
+    p = sub.add_parser("serve", help="serve the scorer and the database over HTTP (docs at /docs)")
+    p.add_argument("--host", default="127.0.0.1")
+    p.add_argument("--port", type=int, default=8000)
+    p.set_defaults(func=cmd_serve)
 
     p = sub.add_parser("eval", help="measure the scorer against labelled postings")
     p.add_argument("cases", help="JSONL file: id, title, description, location, label (apply|skip)")

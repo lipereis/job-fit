@@ -54,6 +54,25 @@ jobfit gaps
 
 `jobfit companies --skill Python` ranks companies by how many of their postings ask for a skill, next to how many postings they have in total, so a company with 3 of 4 postings asking for it stands out from one with 3 of 300.
 
+### As an API
+
+```bash
+pip install -e ".[api]"
+jobfit serve
+```
+
+The same scorer and database over HTTP, with interactive documentation at `http://127.0.0.1:8000/docs`.
+
+| Endpoint | What it returns |
+|---|---|
+| `POST /score` | The fit for a posting you send as `{title, description, location}`: score, band, and each requirement as have, partial or missing |
+| `GET /jobs?min=65` | Stored postings above a score, best first |
+| `GET /jobs/{id}` | One stored posting, explained |
+| `GET /gaps` | Most requested skills and whether the profile has them |
+| `GET /companies?skill=Python` | Companies ranked by postings that ask for a skill |
+
+It binds to localhost by default and has no authentication: it serves your own profile and database, on your own machine.
+
 Skills and their aliases are in [`skills.json`](src/jobfit/data/skills.json), the boards in [`boards.json`](src/jobfit/data/boards.json). Both are meant to be edited.
 
 ## How I know whether it works
