@@ -36,6 +36,14 @@ def client(tmp_path):
     return TestClient(create_app(database, PROFILE_PATH))
 
 
+def test_home_serves_the_web_page(client):
+    response = client.get("/")
+    assert response.status_code == 200 and response.headers["content-type"].startswith("text/html")
+    assert "<title>jobfit</title>" in response.text
+    # API data must never be injected as HTML: posting text is untrusted
+    assert "innerHTML" not in response.text.split("<script>")[1].replace("never innerHTML", "")
+
+
 def test_health(client):
     assert client.get("/health").json()["ok"] is True
 

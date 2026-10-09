@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "jobfit"
-version = "0.2.0"
+version = "0.3.0"
 description = "Score job postings against your resume, requirement by requirement."
 readme = "README.md"
 requires-python = ">=3.10"
@@ -21,7 +21,7 @@ jobfit = "jobfit.cli:main"
 where = ["src"]
 
 [tool.setuptools.package-data]
-jobfit = ["data/*.json"]
+jobfit = ["data/*.json", "web/*.html"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

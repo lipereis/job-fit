@@ -61,7 +61,7 @@ pip install -e ".[api]"
 jobfit serve
 ```
 
-The same scorer and database over HTTP, with interactive documentation at `http://127.0.0.1:8000/docs`.
+Open `http://127.0.0.1:8000` for a web page where you paste a posting and see each requirement marked as have, partial or missing; it also lists the stored postings and the skills in demand. The same scorer and database are available over HTTP, with interactive documentation at `/docs`.
 
 | Endpoint | What it returns |
 |---|---|

@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>jobfit</title>
+<link rel="icon" href="data:,">
+<style>
+  :root {
+    --bg: #f5f4f0; --surface: #ffffff; --ink: #1b1b18; --muted: #66655f; --line: #dcdad2;
+    --accent: #2b4c7e; --accent-ink: #ffffff;
+    --have: #1f6f47; --have-bg: #e3f1e8; --partial: #8a5a00; --partial-bg: #fbefd2;
+    --missing: #9c2f22; --missing-bg: #f8e2de; --focus: #2b4c7e;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #15151a; --surface: #1e1e24; --ink: #ececf0; --muted: #a2a1ab; --line: #33333d;
+      --accent: #8fb0e6; --accent-ink: #10121a;
+      --have: #7fd3a4; --have-bg: #173326; --partial: #f0c36a; --partial-bg: #3a2e12;
+      --missing: #f09a8d; --missing-bg: #3d1d19; --focus: #8fb0e6;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  main { max-width: 920px; margin: 0 auto; padding: 24px 16px 64px; }
+  header { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; }
+  h1 { font-size: 26px; margin: 0; letter-spacing: -0.02em; }
+  header p { margin: 0; color: var(--muted); }
+  nav { display: flex; gap: 4px; border-bottom: 1px solid var(--line); margin-bottom: 20px; flex-wrap: wrap; }
+  nav button { background: none; border: 0; border-bottom: 3px solid transparent; padding: 10px 14px; font: inherit; color: var(--muted); cursor: pointer; }
+  nav button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--accent); font-weight: 600; }
+  section[hidden] { display: none; }
+  label { display: block; font-weight: 600; font-size: 14px; margin: 14px 0 6px; }
+  input, textarea, select { width: 100%; padding: 10px 12px; font: inherit; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 8px; }
+  textarea { min-height: 220px; resize: vertical; }
+  :focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+  .row { display: grid; grid-template-columns: 2fr 1fr; gap: 12px; }
+  @media (max-width: 620px) { .row { grid-template-columns: 1fr; } }
+  .primary { margin-top: 16px; background: var(--accent); color: var(--accent-ink); border: 0; border-radius: 8px; padding: 11px 20px; font: inherit; font-weight: 600; cursor: pointer; }
+  .primary:disabled { opacity: 0.6; cursor: progress; }
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 20px; margin-top: 20px; }
+  .verdict { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+  .score { font-size: 56px; font-weight: 700; line-height: 1; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+  .band { display: inline-block; padding: 4px 12px; border-radius: 999px; font-weight: 600; font-size: 14px; }
+  .band.fit { background: var(--have-bg); color: var(--have); }
+  .band.stretch { background: var(--partial-bg); color: var(--partial); }
+  .band.out { background: var(--missing-bg); color: var(--missing); }
+  .meaning { color: var(--muted); margin: 6px 0 0; }
+  h2 { font-size: 15px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin: 22px 0 8px; }
+  ul.reqs { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+  ul.reqs li { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 8px; }
+  ul.reqs li.have { background: var(--have-bg); }
+  ul.reqs li.partial { background: var(--partial-bg); }
+  ul.reqs li.missing { background: var(--missing-bg); }
+  .tag { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; min-width: 62px; }
+  li.have .tag { color: var(--have); } li.partial .tag { color: var(--partial); } li.missing .tag { color: var(--missing); }
+  .notes { margin: 0; padding-left: 20px; color: var(--muted); }
+  .facts { color: var(--muted); font-size: 14px; margin: 10px 0 0; }
+  .error { color: var(--missing); margin-top: 14px; }
+  table { width: 100%; border-collapse: collapse; }
+  th, td { text-align: left; padding: 10px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-size: 13px; color: var(--muted); font-weight: 600; }
+  td.num { font-variant-numeric: tabular-nums; font-weight: 700; white-space: nowrap; }
+  .link { background: none; border: 0; padding: 0; font: inherit; color: var(--accent); cursor: pointer; text-align: left; text-decoration: underline; }
+  .sub { color: var(--muted); font-size: 14px; }
+  .toolbar { display: flex; gap: 12px; align-items: end; flex-wrap: wrap; }
+  .toolbar > div { min-width: 180px; }
+  .bar { height: 8px; border-radius: 4px; background: var(--line); overflow: hidden; min-width: 80px; }
+  .bar > span { display: block; height: 100%; background: var(--accent); }
+  .table-wrap { overflow-x: auto; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>jobfit</h1>
+    <p>Does this posting match your resume? Requirement by requirement.</p>
+  </header>
+
+  <nav role="tablist" aria-label="Views">
+    <button role="tab" id="tab-paste" aria-controls="view-paste" aria-selected="true">Check a posting</button>
+    <button role="tab" id="tab-jobs" aria-controls="view-jobs" aria-selected="false">Stored postings</button>
+    <button role="tab" id="tab-gaps" aria-controls="view-gaps" aria-selected="false">Skill demand</button>
+  </nav>
+
+  <section id="view-paste" role="tabpanel" aria-labelledby="tab-paste">
+    <form id="form">
+      <div class="row">
+        <div><label for="title">Job title</label><input id="title" required maxlength="300" placeholder="Junior Automation Analyst"></div>
+        <div><label for="location">Location</label><input id="location" maxlength="300" placeholder="Remote, Brazil"></div>
+      </div>
+      <label for="description">Posting text</label>
+      <textarea id="description" required maxlength="50000" placeholder="Paste the whole posting here, headings included."></textarea>
+      <button class="primary" id="submit">Score it</button>
+    </form>
+    <p class="error" id="paste-error" role="alert" hidden></p>
+    <div id="paste-result" aria-live="polite"></div>
+  </section>
+
+  <section id="view-jobs" role="tabpanel" aria-labelledby="tab-jobs" hidden>
+    <div class="toolbar">
+      <div>
+        <label for="min">Show</label>
+        <select id="min">
+          <option value="65">Fits only (65+)</option>
+          <option value="45" selected>Fits and stretches (45+)</option>
+          <option value="0">Everything eligible</option>
+        </select>
+      </div>
+    </div>
+    <p class="error" id="jobs-error" role="alert" hidden></p>
+    <div class="card table-wrap"><table>
+      <thead><tr><th scope="col">Score</th><th scope="col">Posting</th><th scope="col">Location</th></tr></thead>
+      <tbody id="jobs-body"></tbody>
+    </table></div>
+    <div id="job-detail" aria-live="polite"></div>
+  </section>
+
+  <section id="view-gaps" role="tabpanel" aria-labelledby="tab-gaps" hidden>
+    <p class="sub">Skills the stored postings require most often, and whether your profile has them.</p>
+    <p class="error" id="gaps-error" role="alert" hidden></p>
+    <div class="card table-wrap"><table>
+      <thead><tr><th scope="col">Skill</th><th scope="col">Share of postings</th><th scope="col">Postings</th><th scope="col">You</th></tr></thead>
+      <tbody id="gaps-body"></tbody>
+    </table></div>
+  </section>
+</main>
+
+<script>
+const MEANING = {
+  fit: "You cover what is asked. Worth a tailored application.",
+  stretch: "There is a real gap. Worth a one-click application, nothing more.",
+  out: "Skip it.",
+};
+const $ = (id) => document.getElementById(id);
+
+// Everything from the API goes in through textContent, never innerHTML: posting text is untrusted.
+function el(tag, props = {}, children = []) {
+  const node = document.createElement(tag);
+  for (const [key, value] of Object.entries(props)) {
+    if (key === "class") node.className = value; else if (key === "text") node.textContent = value; else node.setAttribute(key, value);
+  }
+  for (const child of children) node.append(child);
+  return node;
+}
+
+async function api(path, options) {
+  const response = await fetch(path, options);
+  const body = await response.json().catch(() => ({}));
+  if (!response.ok) {
+    const detail = Array.isArray(body.detail) ? body.detail.map((d) => d.msg).join("; ") : body.detail;
+    throw new Error(detail || `Request failed (${response.status})`);
+  }
+  return body;
+}
+
+function showError(id, message) { const node = $(id); node.textContent = message || ""; node.hidden = !message; }
+
+function reqList(items) {
+  return el("ul", { class: "reqs" }, items.map(([status, skill]) =>
+    el("li", { class: status }, [el("span", { class: "tag", text: status }), el("span", { text: skill })])));
+}
+
+function fitCard(fit, heading) {
+  const card = el("div", { class: "card" });
+  if (heading) card.append(heading);
+  card.append(el("div", { class: "verdict" }, [
+    el("div", { class: "score", text: String(fit.score) }),
+    el("div", {}, [
+      el("span", { class: `band ${fit.band}`, text: fit.band }),
+      el("p", { class: "meaning", text: fit.eligible ? MEANING[fit.band] : "Not eligible where it is located; see the notes." }),
+    ]),
+  ]));
+  const facts = [`Level asked: ${fit.level_asked || "not stated"}`, `Years asked: ${fit.years_asked ?? "not stated"}`];
+  card.append(el("p", { class: "facts", text: facts.join("  ·  ") }));
+
+  const required = [...fit.have.map((s) => ["have", s]), ...fit.partial.map((s) => ["partial", s]), ...fit.missing.map((s) => ["missing", s])];
+  card.append(el("h2", { text: "Required" }));
+  card.append(required.length ? reqList(required) : el("p", { class: "sub", text: "No requirement the tool recognizes." }));
+
+  const nice = [...fit.nice_have.map((s) => ["have", s]), ...fit.nice_missing.map((s) => ["missing", s])];
+  if (nice.length) { card.append(el("h2", { text: "Nice to have" })); card.append(reqList(nice)); }
+  if (fit.notes.length) {
+    card.append(el("h2", { text: "Notes" }));
+    card.append(el("ul", { class: "notes" }, fit.notes.map((note) => el("li", { text: note }))));
+  }
+  return card;
+}
+
+$("form").addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const button = $("submit");
+  button.disabled = true; showError("paste-error"); $("paste-result").replaceChildren();
+  try {
+    const fit = await api("/score", {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ title: $("title").value.trim(), location: $("location").value.trim(), description: $("description").value }),
+    });
+    $("paste-result").replaceChildren(fitCard(fit));
+  } catch (error) { showError("paste-error", error.message); }
+  button.disabled = false;
+});
+
+async function loadJobs() {
+  showError("jobs-error"); $("job-detail").replaceChildren();
+  const body = $("jobs-body");
+  try {
+    const jobs = await api(`/jobs?min=${$("min").value}&limit=100`);
+    if (!jobs.length) {
+      body.replaceChildren(el("tr", {}, [el("td", { colspan: "3", class: "sub", text: "Nothing at this level. Run 'jobfit fetch' and 'jobfit score', or lower the filter." })]));
+      return;
+    }
+    body.replaceChildren(...jobs.map((job) => {
+      const open = el("button", { class: "link", type: "button", text: job.title });
+      open.addEventListener("click", () => loadJob(job.id));
+      return el("tr", {}, [
+        el("td", { class: "num" }, [el("span", { text: String(job.score) + " " }), el("span", { class: `band ${job.band}`, text: job.band })]),
+        el("td", {}, [open, el("div", { class: "sub", text: job.company })]),
+        el("td", { class: "sub", text: job.location }),
+      ]);
+    }));
+  } catch (error) { body.replaceChildren(); showError("jobs-error", error.message); }
+}
+
+async function loadJob(id) {
+  try {
+    const job = await api(`/jobs/${encodeURIComponent(id)}`);
+    const heading = el("div", {}, [el("strong", { text: job.title }), el("div", { class: "sub", text: `${job.company} · ${job.location}` })]);
+    if (/^https?:\/\//.test(job.url)) {
+      heading.append(el("a", { href: job.url, target: "_blank", rel: "noopener noreferrer", text: "Open the posting" }));
+    }
+    const card = fitCard(job.fit, heading);
+    $("job-detail").replaceChildren(card);
+    card.scrollIntoView({ behavior: "smooth", block: "start" });
+  } catch (error) { showError("jobs-error", error.message); }
+}
+
+async function loadGaps() {
+  showError("gaps-error");
+  try {
+    const rows = await api("/gaps?limit=30");
+    $("gaps-body").replaceChildren(...rows.map((row) => {
+      const status = row.status === "have" ? "have" : row.status === "partial" ? "partial" : "missing";
+      const bar = el("div", { class: "bar", role: "img", "aria-label": `${row.share}%` }, [el("span", { style: `width:${Math.min(100, row.share * 3)}%` })]);
+      return el("tr", {}, [
+        el("td", { text: row.skill }),
+        el("td", {}, [el("span", { class: "sub", text: `${row.share}% ` }), bar]),
+        el("td", { class: "num", text: String(row.jobs) }),
+        el("td", {}, [el("span", { class: `band ${status === "have" ? "fit" : status === "partial" ? "stretch" : "out"}`, text: status })]),
+      ]);
+    }));
+  } catch (error) { showError("gaps-error", error.message); }
+}
+
+const loaders = { "tab-jobs": loadJobs, "tab-gaps": loadGaps };
+for (const tab of document.querySelectorAll('[role="tab"]')) {
+  tab.addEventListener("click", () => {
+    for (const other of document.querySelectorAll('[role="tab"]')) {
+      const selected = other === tab;
+      other.setAttribute("aria-selected", String(selected));
+      $(other.getAttribute("aria-controls")).hidden = !selected;
+    }
+    loaders[tab.id]?.();
+  });
+}
+$("min").addEventListener("change", loadJobs);
+</script>
+</body>
+</html>

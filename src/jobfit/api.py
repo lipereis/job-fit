@@ -1,14 +1,16 @@
 """HTTP API over the same scorer and database the command line uses.
 
-Run it with `jobfit serve`. Interactive documentation is served at /docs.
+Run it with `jobfit serve`. The web page is at /, interactive API documentation at /docs.
 """
 
 import json
 import sqlite3
 from collections.abc import Iterator
+from importlib import resources
 from pathlib import Path
 
 from fastapi import Depends, FastAPI, HTTPException, Query
+from fastapi.responses import HTMLResponse
 from pydantic import BaseModel, Field
 
 from . import __version__, db
@@ -88,6 +90,11 @@ def create_app(db_path: str | Path = "jobfit.db", profile_path: str | Path = "pr
         if not path.is_file():
             raise HTTPException(503, f"No profile at {path}. Create one with 'jobfit profile resume.pdf'.")
         return Profile.load(path)
+
+    @app.get("/", response_class=HTMLResponse, include_in_schema=False)
+    def home() -> str:
+        """The web page: one static file that talks to the endpoints below."""
+        return resources.files("jobfit.web").joinpath("index.html").read_text(encoding="utf-8")
 
     @app.get("/health")
     def health() -> dict:
