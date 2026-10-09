@@ -71,6 +71,8 @@ What that number is worth:
 
 On real data the first version did much worse than on its own test set. I ran it on 1,917 postings from 38 boards and it recommended twelve, including a senior product manager, a market-risk analyst and a Java role with no Java. The causes were all things the fictional set had not covered: seniority carried only 15% of the score, the title was ignored, "Remote, San Francisco" passed as remote, and a posting with two recognized skills out of twenty requirement lines scored 100. Each became a rule and a test. After that the same 1,917 postings produced one recommendation.
 
+Building a sample of real postings to label by hand then showed a fifth: a location such as "São Paulo, Brazil", with no word about remote work, was being treated as open to anyone. It is now read as the office.
+
 ## Limits
 
 - It only sees skills listed in `skills.json` (70 of them). A requirement outside that list is invisible, which is why it refuses to judge postings it mostly cannot read.

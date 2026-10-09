@@ -66,6 +66,29 @@ def level_fit(req: Requirements, profile: Profile) -> tuple[float, list[str]]:
     return fit, notes
 
 
+def _names_another_place(part: str, profile: Profile) -> bool:
+    """True when the text names somewhere beyond 'remote' and the regions the profile accepts."""
+    for region in profile.remote_regions:
+        part = part.replace(normalize(region), "")
+    return bool(re.sub(r"remot[eoa]|home ?-?based|home ?office|[\s,/|()\-–—.]", "", part))
+
+
+def eligibility(remote: bool | None, location: str, profile: Profile) -> tuple[bool, str]:
+    """Can the person take this job where it is? A location may list alternatives; one that fits is enough."""
+    place = normalize(location)
+    if any(normalize(city) in place for city in profile.locations) and not profile.remote_only:
+        return True, ""
+    if remote is False:
+        return False, f"on-site or hybrid outside the profile's locations ({location or 'unknown'})"
+    parts = [p for p in re.split(r"[;/]", place) if p.strip()] or [place]
+    if all(_names_another_place(part, profile) for part in parts):
+        if remote:
+            return False, f"remote, but for another region ({location})"
+        # "São Paulo, Brazil" with no word about remote work: assume the office
+        return False, f"names a place outside the profile's locations and does not say remote ({location})"
+    return True, ""
+
+
 def score(req: Requirements, profile: Profile, location: str = "", title: str = "") -> Fit:
     have = [s for s in req.required if profile.skills.get(s) == "strong"]
     partial = [s for s in req.required if profile.skills.get(s) == "basic"]
@@ -105,18 +128,8 @@ def score(req: Requirements, profile: Profile, location: str = "", title: str = 
         value = min(value, GATE_CAP)
         notes.append("title is outside the profile's target roles")
 
-    eligible = True
-    place = location.lower()
-    in_city = any(city.lower() in place for city in profile.locations)
-    if req.remote is False:
-        if profile.remote_only or not in_city:
-            eligible = False
-            notes.append(f"on-site or hybrid outside the profile's locations ({location or 'unknown'})")
-    elif req.remote and not in_city:
-        # "Remote, San Francisco" is remote for people there, not for everyone
-        elsewhere = re.sub(r"remot[eoa]|home ?office|[\s,/|()\-–—]", "", place)
-        if elsewhere and not any(region.lower() in place for region in profile.remote_regions):
-            eligible = False
-            notes.append(f"remote, but for another region ({location})")
+    eligible, reason = eligibility(req.remote, location, profile)
+    if not eligible:
+        notes.append(reason)
     return Fit(score=value, eligible=eligible, have=have, partial=partial, missing=missing,
                nice_have=nice_have, nice_missing=nice_missing, level_fit=lvl, notes=notes)

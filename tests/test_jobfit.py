@@ -185,6 +185,27 @@ def test_remote_for_another_region_is_not_eligible():
 
 
 
+@pytest.mark.parametrize("location, remote, expected", [
+    ("Brazil", None, True),
+    ("Remote, Brazil", True, True),
+    ("Remoto", True, True),
+    ("Home based - Worldwide", True, True),
+    ("São Paulo, São Paulo, Brazil", None, False),
+    ("Guarapari, Espirito Santo, Brasil", None, False),
+    ("Remote, San Francisco", True, False),
+    ("Brasil; São Paulo, São Paulo, Brazil", None, True),
+    ("Remote, United Kingdom / Ireland / Brazil / Mexico", True, True),
+    ("Rio de Janeiro, RJ", None, True),
+    ("Rio de Janeiro, RJ", False, True),
+    ("Campinas, São Paulo, Brasil", False, False),
+    ("", None, True),
+])
+def test_eligibility_by_location(location, remote, expected):
+    from jobfit.score import eligibility
+
+    assert eligibility(remote, location, PROFILE)[0] is expected
+
+
 def test_cases_file_matches_its_builder():
     built = json.loads((ROOT / "eval" / "cases.jsonl").read_text(encoding="utf-8").splitlines()[0])
     assert {"id", "title", "location", "label", "why", "description"} <= set(built)
