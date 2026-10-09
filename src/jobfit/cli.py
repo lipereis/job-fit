@@ -9,7 +9,7 @@ from . import db
 from .evaluate import evaluate, load_cases
 from .extract import LEVELS, extract
 from .profile import Profile, from_resume_text, read_resume
-from .score import score
+from .score import STRETCH, band, score
 from .sources import default_boards, fetch_all, filter_by_place
 
 DEFAULT_PLACES = r"remote|remoto|brazil|brasil|latam|latin america|worldwide|anywhere|global"
@@ -50,10 +50,12 @@ def cmd_score(args) -> int:
                          score(req, profile, job["location"], job["title"]), req.required, req.nice)
     conn.commit()
     rows = db.ranked(conn, profile.fingerprint(), args.min, args.limit)
-    print(f"{len(jobs)} postings scored; {len(rows)} eligible at {args.min}+")
+    fits = sum(1 for row in rows if band(row["score"]) == "fit")
+    print(f"{len(jobs)} postings scored; {len(rows)} eligible at {args.min}+ "
+          f"({fits} fit, {len(rows) - fits} stretch)")
     for row in rows:
         detail = json.loads(row["detail"])
-        print(f"\n{row['score']:3d}  {row['title']} | {row['company']} | {row['location']}")
+        print(f"\n{row['score']:3d}  {band(row['score']):7s} {row['title']} | {row['company']} | {row['location']}")
         print(f"     has: {', '.join(detail['have'] + detail['partial']) or '-'}")
         print(f"     missing: {', '.join(detail['missing']) or '-'}")
         print(f"     {row['url']}   (jobfit explain {row['id']})")
@@ -70,7 +72,7 @@ def cmd_explain(args) -> int:
     req = extract(job["title"], job["description"], job["location"])
     fit = score(req, profile, job["location"], job["title"])
     print(f"{job['title']} | {job['company']} | {job['location']}\n{job['url']}\n")
-    print(f"Score {fit.score}" + ("" if fit.eligible else "  (not eligible)"))
+    print(f"Score {fit.score} ({band(fit.score)})" + ("" if fit.eligible else "  (not eligible)"))
     print(f"Level asked: {req.level or 'not stated'} | years: {req.years or 'not stated'} | "
           f"remote: {'yes' if req.remote else 'no' if req.remote is False else 'not stated'}\n")
     print("Required")
@@ -138,7 +140,8 @@ def main(argv: list[str] | None = None) -> int:
     p.set_defaults(func=cmd_fetch)
 
     p = sub.add_parser("score", help="score every stored posting and list the best")
-    p.add_argument("--min", type=int, default=65)
+    p.add_argument("--min", type=int, default=STRETCH,
+                   help="lowest score to list (default: stretch and above; 65 lists only fits)")
     p.add_argument("--limit", type=int, default=20)
     p.set_defaults(func=cmd_score)
 

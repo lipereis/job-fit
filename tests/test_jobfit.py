@@ -206,6 +206,18 @@ def test_eligibility_by_location(location, remote, expected):
     assert eligibility(remote, location, PROFILE)[0] is expected
 
 
+def test_bands_split_fit_stretch_and_out():
+    from jobfit.score import band
+
+    assert [band(v) for v in (100, 65, 64, 45, 44, 0)] == ["fit", "fit", "stretch", "stretch", "out", "out"]
+
+
+def test_requirement_families_added_after_real_postings_are_read():
+    found = find_skills("Bachelor's degree in Computer Science. You've shipped production systems. "
+                        "Experiência com legendagem e edição de vídeos para YouTube.")
+    assert {"CS degree", "Production systems", "Transcription/ASR", "Long-form video", "Video editing"} <= set(found)
+
+
 def test_cases_file_matches_its_builder():
     built = json.loads((ROOT / "eval" / "cases.jsonl").read_text(encoding="utf-8").splitlines()[0])
     assert {"id", "title", "location", "label", "why", "description"} <= set(built)

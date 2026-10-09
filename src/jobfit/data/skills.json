@@ -218,7 +218,13 @@
       "autogen",
       "agentes de ia",
       "ai agents",
-      "agentic"
+      "agentic",
+      "agent orchestration",
+      "agentic systems",
+      "agentic workflows",
+      "mcp",
+      "google adk",
+      "hugging face"
     ],
     "ML training": [
       "pytorch",
@@ -230,7 +236,12 @@
       "mlops",
       "treinamento de modelos",
       "model training",
-      "machine learning"
+      "machine learning",
+      "deep learning",
+      "training models",
+      "pre-training",
+      "nlp",
+      "huggingface"
     ],
     "Data analysis": [
       "pandas",
@@ -298,20 +309,36 @@
       "capcut",
       "edicao de video",
       "video editing",
-      "edicao de videos"
+      "edicao de videos",
+      "video editor",
+      "editor de video",
+      "edit videos",
+      "editing videos",
+      "editar videos",
+      "video editing experience",
+      "raw footage",
+      "footage",
+      "adobe premiere",
+      "finalizacao de video"
     ],
     "Motion graphics": [
       "after effects",
       "motion graphics",
       "motion design",
-      "animacao 2d"
+      "animacao 2d",
+      "adobe after effects",
+      "animation",
+      "animacao"
     ],
     "Design tools": [
       "photoshop",
       "illustrator",
       "figma",
       "canva",
-      "indesign"
+      "indesign",
+      "adobe photoshop",
+      "design grafico",
+      "graphic design"
     ],
     "Short-form video": [
       "reels",
@@ -351,7 +378,14 @@
       "transcricao",
       "transcription",
       "speech-to-text",
-      "ffmpeg"
+      "ffmpeg",
+      "subtitling",
+      "subtitles",
+      "subtitle",
+      "legendas",
+      "legendagem",
+      "captions",
+      "captioning"
     ],
     "Copywriting": [
       "copywriting",
@@ -359,8 +393,7 @@
       "redacao",
       "roteiro",
       "roteirizacao",
-      "scriptwriting",
-      "storytelling"
+      "scriptwriting"
     ],
     "Social media": [
       "social media",
@@ -475,7 +508,18 @@
       "itil",
       "firewall",
       "vpn",
-      "windows server"
+      "windows server",
+      "tcp/ip",
+      "load balancing",
+      "cdn",
+      "bgp",
+      "sre",
+      "devops",
+      "infrastructure engineering",
+      "platform engineering",
+      "observability",
+      "observabilidade",
+      "terraform"
     ],
     "Project management": [
       "scrum",
@@ -499,6 +543,185 @@
     "Spanish": [
       "espanhol",
       "spanish"
+    ],
+    "Long-form video": [
+      "youtube",
+      "long-form",
+      "long form",
+      "talking-head",
+      "talking head",
+      "documentary",
+      "documentario",
+      "videos longos"
+    ],
+    "Editorial judgment": [
+      "storytelling",
+      "pacing",
+      "retention",
+      "retencao",
+      "hooks",
+      "ganchos",
+      "narrativa",
+      "story structure",
+      "ritmo"
+    ],
+    "Content creation": [
+      "content creation",
+      "content creator",
+      "criacao de conteudo",
+      "criador de conteudo",
+      "producao de conteudo",
+      "ugc",
+      "creator",
+      "editorial"
+    ],
+    "Photography": [
+      "fotografia",
+      "photography",
+      "fotos",
+      "photo shoots",
+      "sessoes de foto"
+    ],
+    "CS degree": [
+      "computer science",
+      "ciencia da computacao",
+      "engenharia da computacao",
+      "phd",
+      "stem",
+      "academic track record",
+      "master's degree"
+    ],
+    "Production systems": [
+      "production systems",
+      "production experience",
+      "in production",
+      "shipped production",
+      "production-quality",
+      "production ml",
+      "sistemas em producao",
+      "ambiente de producao",
+      "production llm"
+    ],
+    "Office/Admin": [
+      "google workspace",
+      "microsoft 365",
+      "pacote office",
+      "powerpoint",
+      "administrative",
+      "administrativo",
+      "administrativa",
+      "executive support",
+      "virtual assistant",
+      "requisicoes de compras",
+      "notas fiscais",
+      "gestao de contratos"
+    ],
+    "Collaboration tools": [
+      "notion",
+      "slack",
+      "asana",
+      "trello",
+      "monday.com",
+      "confluence"
+    ],
+    "Security/IAM": [
+      "security vulnerabilities",
+      "iam",
+      "identity & access",
+      "rbac",
+      "sso",
+      "mfa",
+      "seguranca da informacao",
+      "information security",
+      "security engineering",
+      "least privilege"
+    ],
+    "Product management": [
+      "product strategy",
+      "product manager",
+      "roadmap",
+      "backlog",
+      "product thinking",
+      "gestao de produto"
+    ],
+    "People management": [
+      "managing people",
+      "people management",
+      "gestao de pessoas",
+      "lideranca de equipe",
+      "engineering manager",
+      "team leadership",
+      "lideranca de times"
+    ],
+    "Product design (UI/UX)": [
+      "ux",
+      "ui",
+      "product design",
+      "user research",
+      "design de produto"
+    ],
+    "Operations/Logistics": [
+      "operacao de maquinas",
+      "logistica",
+      "transporte",
+      "roteirizacao",
+      "seguranca do trabalho",
+      "trabalho de campo",
+      "supply chain"
+    ],
+    "Compliance/Legal": [
+      "compliance",
+      "forensic",
+      "juridico",
+      "auditoria",
+      "audit",
+      "fraudes",
+      "e-discovery"
+    ],
+    "Consulting/Change management": [
+      "consultoria",
+      "consulting",
+      "gestao de mudancas",
+      "change management",
+      "prosci",
+      "transformacao digital"
+    ],
+    "Graph databases": [
+      "cypher",
+      "opencypher",
+      "neo4j",
+      "property graph",
+      "knowledge graph",
+      "grafos"
+    ],
+    "Statistics/Analytics": [
+      "analytics",
+      "estatistica",
+      "statistics",
+      "dashboards",
+      "kpis",
+      "indicadores"
+    ],
+    "Commercial experience": [
+      "experiencia comercial",
+      "b2b",
+      "account management",
+      "gestao de carteira",
+      "customer success"
+    ],
+    "On-camera presence": [
+      "on-camera",
+      "on camera",
+      "camera presence",
+      "apresentador",
+      "frente das cameras"
+    ],
+    "Systems programming": [
+      "c++",
+      "rust",
+      "c/c++",
+      "kernel",
+      "embedded"
     ]
   }
 }
